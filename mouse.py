@@ -103,6 +103,7 @@ class home:
 
     def add_folder(self):
         pass
+    #salvar gravações
 
     def save_rec(self):
         pass
