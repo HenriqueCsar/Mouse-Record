@@ -3,8 +3,6 @@ from tkinter import messagebox, filedialog
 import keyboard, os
 
 
-os.chdir(r"C:\Users\Henrique1\Desktop\mouse_record")
-
 class home:
     def __init__(self):
         super().__init__()
@@ -103,11 +101,11 @@ class home:
 
     def add_folder(self):
         pass
-    #salvar gravações
 
     def save_rec(self):
         pass
 
     def open_rec(self):
-        pass
+        self.file_open_rec = filedialog.askopenfilename(initialdir='/', title='Escolha seu arquivo .rec', filetypes=[("file .rec", "*.rec")])
+        
 home()
