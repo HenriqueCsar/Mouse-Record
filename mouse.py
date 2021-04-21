@@ -1,23 +1,64 @@
-from tkinter import *
 from tkinter import messagebox, filedialog
-import keyboard, os
-
+from ttkthemes import ThemedStyle
+from tkinter import ttk
+from tkinter.ttk import *
+from tkinter import *
+import tkinter as tk
+import keyboard, os, pyautogui, random
+from threading import Thread
+from time import sleep
 
 class home:
     def __init__(self):
         super().__init__()
 
-        self.app = Tk()
+        ####Designer
+
+        self.app = tk.Tk()
         self.app.title("Mouse record PYTHON") 
         self.app.geometry('700x400')
-        self.app.configure(bg='#292f3b')
         self.app.iconbitmap('repository\\icone.ico')
+        self.app.resizable(height=0, width=0)
+        
+        self.style = ThemedStyle(self.app)
+        self.style.theme_use("equilux") 
+
+        bg = self.style.lookup('TLabel', 'background')
+        fg = self.style.lookup('TLabel', 'foreground')
+
+        self.app.configure(bg=self.style.lookup('TLabel', 'background'))
+
+        
+        def play():
+            Thread(target=self.play, ).start()
+        def stop():
+            Thread(target=self.stop, ).start()
+        ####Container de componentes
+
+
+       ####imagens buttons 
+        self.photo = PhotoImage(file=r'repository\play.png')
+        self.photoimage = self.photo.subsample(20, 20)
+
+        self.photo_two = PhotoImage(file=r'repository\stop.png')
+        self.photoimage_two = self.photo_two.subsample(12,12)
+
+        ###Buttons
+
+
+        self.btn_play = tk.Button(self.app, image=self.photoimage, compound=LEFT, command=play, bd=0, bg="#464646")
+        self.btn_play.grid(row=1, column=1, padx=20, pady=20)
+
+        self.btn_stop = tk.Button(self.app, image=self.photoimage_two, compound=LEFT, command=stop, bd=0, bg="#464646")
+        self.btn_stop.grid(row=1, column=2, padx=20, pady=20)
+
+
 
 
         ####MENU
 
-        self.menuBar = Menu(self.app)
-        self.menu1 = Menu(self.menuBar, tearoff=0)
+        self.menuBar = tk.Menu(self.app)
+        self.menu1 = tk.Menu(self.menuBar, tearoff=0)
         self.menu1.add_command(label="Open Rec", command=self.open_rec)
         self.menu1.add_command(label="Save Rec", command=self.save_rec)
         self.menu1.add_command(label="Add Folder", command=self.add_folder)
@@ -32,6 +73,9 @@ class home:
         ####RUN WINDOW
         self.app.mainloop()
 
+    def play():
+        Thread(target=self.play, ).start()
+
     def setup(self):
         keyboard.add_hotkey({self.player}, self.play)
         keyboard.add_hotkey({self.pauser}, self.play)
@@ -39,11 +83,28 @@ class home:
 
 
     def play(self):
-        pass
+        self.save_rec = random.randint(10000,99999)
+        self.save_rec = str(self.save_rec)
+        self.infos = True
+
+        with open("rec.rec", "a") as create:
+            create.write('')
+
+        while os.path.exists('rec.rec'):
+            if self.infos == False:
+                break
+
+            x, y = pyautogui.position()
+            sleep(0.5)
+            self.x=str(x)
+            self.y=str(y)
+            with open(f"records\\{self.save_rec}.rec", "a") as posi:
+                posi.write(f'{self.x}x{self.y}\n')
 
 
     def stop(self):
-        pass
+        os.remove('rec.rec')
+
     
     def pause(self):
         pass
