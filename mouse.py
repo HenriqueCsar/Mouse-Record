@@ -6,6 +6,7 @@ from tkinter import *
 import tkinter as tk
 import keyboard, os, pyautogui, random
 from threading import Thread
+import tkinter.font as tkFont
 from time import sleep
 
 class home:
@@ -28,11 +29,18 @@ class home:
 
         self.app.configure(bg=self.style.lookup('TLabel', 'background'))
 
-        
+
+
+
+        #####Configure        
         def play():
             Thread(target=self.play, ).start()
         def stop():
             Thread(target=self.stop, ).start()
+
+
+
+
         ####Container de componentes
 
 
@@ -47,12 +55,19 @@ class home:
 
 
         self.btn_play = tk.Button(self.app, image=self.photoimage, compound=LEFT, command=play, bd=0, bg="#464646")
-        self.btn_play.grid(row=1, column=1, padx=20, pady=20)
+        self.btn_play.place(x=10, y=20)
 
         self.btn_stop = tk.Button(self.app, image=self.photoimage_two, compound=LEFT, command=stop, bd=0, bg="#464646")
-        self.btn_stop.grid(row=1, column=2, padx=20, pady=20)
+        self.btn_stop.place(x=10, y=100)
+
+        ####Texto de exibição Positions
+        self.label_text = tk.Label(text="Resultados:", bg="#464646", fg="white", font=('sans serif', 15))
+        self.label_text.place(x=85, y=20)
 
 
+        self.fonts = tkFont.Font(family='sans serif', size=12, weight='bold')
+        self.text_exi = tk.Listbox(self.app, fg="black", width=60, font=self.fonts)
+        self.text_exi.place(x=85, y=60)
 
 
         ####MENU
@@ -100,6 +115,7 @@ class home:
             self.y=str(y)
             with open(f"records\\{self.save_rec}.rec", "a") as posi:
                 posi.write(f'{self.x}x{self.y}\n')
+                self.text_exi.insert("end", f' Mouse position: {self.x} x {self.y} ')
 
 
     def stop(self):
