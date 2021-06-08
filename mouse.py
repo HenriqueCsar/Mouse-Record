@@ -53,7 +53,7 @@ class home:
 
         ###Buttons
 
-
+            
         self.btn_play = tk.Button(self.app, image=self.photoimage, compound=LEFT, command=play, bd=0, bg="#464646")
         self.btn_play.place(x=10, y=20)
 
@@ -89,6 +89,7 @@ class home:
         self.app.mainloop()
 
     def play():
+        #thread
         Thread(target=self.play, ).start()
 
     def setup(self):
