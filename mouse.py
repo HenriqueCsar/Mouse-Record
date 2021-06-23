@@ -14,7 +14,9 @@ class home:
         super().__init__()
 
         ####Designer
-
+        
+        
+        ##initialized styles by tkinter
         self.app = tk.Tk()
         self.app.title("Mouse record PYTHON") 
         self.app.geometry('700x400')
