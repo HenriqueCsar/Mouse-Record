@@ -32,7 +32,7 @@ class home:
 
 
 
-        #####Configure        
+        ####Configure Thread, but both are not in parallelism
         def play():
             Thread(target=self.play, ).start()
         def stop():
@@ -60,8 +60,9 @@ class home:
         self.btn_stop = tk.Button(self.app, image=self.photoimage_two, compound=LEFT, command=stop, bd=0, bg="#464646")
         self.btn_stop.place(x=10, y=100)
 
-        ####Texto de exibição Positions
+        ###text styles
         self.label_text = tk.Label(text="Resultados:", bg="#464646", fg="white", font=('sans serif', 15))
+        ###position
         self.label_text.place(x=85, y=20)
 
 
